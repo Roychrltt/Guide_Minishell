@@ -5,10 +5,10 @@ This is a simple guide for minishell with only the wildcard bonus. I added my he
 So there are mainly three parts: parsing, builtins, and pipes(fork and redirection things blahblahblah).
 
 ### 1. Parsing
-   -expand environmant variables
-   -string to tokens
-   -get type for tokens
-   -deal quotes in tokens
+   - expand environmant variables
+   - string to tokens
+   - get type for tokens
+   - deal quotes in tokens
 
 ### 2. Builtins
    -echo
