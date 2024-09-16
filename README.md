@@ -11,13 +11,13 @@ So there are mainly three parts: parsing, builtins, and pipes(fork and redirecti
    - deal quotes in tokens
 
 ### 2. Builtins
-   -echo
-   -cd
-   -pwd
-   -env
-   -export
-   -exit
+   - echo
+   - cd
+   - pwd
+   - env
+   - export
+   - exit
 
 ### 3. Pipes
-   -redirection
-   -
+   - redirection
+   - 
