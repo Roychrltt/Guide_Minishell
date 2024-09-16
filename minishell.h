@@ -6,7 +6,7 @@
 /*   By: xiaxu <xiaxu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:45:48 by xiaxu             #+#    #+#             */
-/*   Updated: 2024/09/11 14:33:57 by xiaxu            ###   ########.fr       */
+/*   Updated: 2024/09/16 11:28:56 by xiaxu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-extern pid_t	g_pid;
+extern int	g_sigval;
 
 typedef enum e_token_type
 {
@@ -46,8 +46,6 @@ typedef enum e_token_type
 	PIPE,
 	AND,
 	OR,
-	SINGLEQUOTE,
-	DOUBLEQUOTE,
 	COMMAND
 }	t_token_type;
 
