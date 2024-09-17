@@ -85,10 +85,42 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   Print working directory. I used `getcdw(NULL, 0)` to retrieve the pwd.  
 
 **2.4 env**  
-  Print all environment variables. (All variables whose `is_unset` value is 0).
+  Print all environment variables. (All variables whose `is_unset` value is 0)
 
-**2.1 echo**  
+**2.5 export**  
+  - export without argument would print all environment variables sorted by their name in ascii order. (But this is actually an undefined behavior, you can choose not to manage this at all)  
+  - export with arguments would try to add each into the environment. If a variable's name is not valid (an environment variable's name can only have letters, numbers, and _, and it cannot start by a number), bash would print an error message and carrying on with the following.  
+  - If one variable with the same name already exists, export this variable will rewrite its value.
+  Example:  
+```
+  minishell$> export aaa=000 bbb 3cc ddd===  
+  minishell$> export  
+  bash: export: `3cc': not a valid identifier  
+  minishell$> export  
+  ...
+  export aaa="000"  
+  export bbb  
+  export ddd="=="  
+  minishell$>  
+```
 
-**2.1 echo**  
+**2.6 unset**  
+  - unset without argument or a variable that does not exist will not do anything  
+  - unset a variable whose name is invalid will print an error message (the same as export)  
+  - unset an existing variable will delete it  
 
-**2.1 echo**  
+**2.7 exit**  
+  - exit without argument will exit minishell with exit status 0 (EXIT_SUCCESS)  
+  - exit with numeric argument will exit minishell with exit status of this number (if negative, we add 256 to it until it's positive, if larger than 256, we subtract 256 from it until it's smaller than 256)  
+  - if the argument is larger than LONG LONG INT MAX or contains characters other than numbers, bash will still exit but does not modify the exit status.
+  - In the case of more than 1 argument, bash will print an error message without exiting
+  Example:
+```
+  minishell$> exit 255  
+  exit  
+  > echo $?  
+  255
+```
+
+## III. Execution  
+**I assume you did pipex and understand how the pipe and fork work**  
