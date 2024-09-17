@@ -1,4 +1,4 @@
-# Guide_Minishell  
+# Guide For Minishell  
 
 This is a simple guide for minishell with only the wildcard bonus (110/100). I added my header file here, in the hope that it would make my explanations more clear. 
   
@@ -24,3 +24,13 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
    - signals  
    - wildcards  
 
+## I. Parsing  
+1.1 Expand environment variables for the first time  
+  Yes, you should try to expand environment variables in the input **before tokenizing it**.
+  Example:  
+  ```
+  export HELLO="ho hello"  
+  ec$HELLO  
+  ```
+  The output should be `hello` instead of `ec$HELLO command not found`  
+1.2
