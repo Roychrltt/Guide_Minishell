@@ -28,7 +28,7 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
 ## Preparation at beginning  
   Before the parsing, I did several things to initialize my main struct `t_mem`. Following are some that might worth a brief mentioning:  
   - Use dup() to save the stdin and stdout so that you can still use the standard input or output during execution (for example, to get input for heredoc) even if you have used dup2() to redirect them, and by the end of the loop they can be redirected back.  
-  - Create a linked list for environment varibales. Personnally I made 2 since the output of export is sorted. Later when we do expansions we should use this list as reference instead of `char **envp` because we might modify the environment of our minishell but the `char **envp` will apparently not change accordingly.  
+  - Create a linked list for environment varibales. Personnally I made 2 since the output of export is sorted. Later when we do expansions we should use this list as reference instead of `char **envp` because we might modify the environment of our minishell but the `char **envp` will apparently not change accordingly. The struct `t_env` that I used have a variable `is_unset` which indicates if this varaible still exists.  
   - Use getenv() and ft_split() to get the paths for the search of command later. (Make sure that your minishell will not segfault if we do `env -i ./minishell`)  
 
  
@@ -66,8 +66,29 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   minishell$> /Users/roychrltthi
   ```  
   ft_substr() and ft_strchr() could help a lot. Be careful with uninitialised value and segfault in this step.  
+
+**By far, all arguments should be ready to be used.**  
   
 ## II. Builtins  
 **I would describe briefly how these builtins should behave, but I highly recommend you to do you own tests to truly learn about the behavior of these commands in `bash --posix`**  
+
+**2.1 echo**  
+  Print arguments one by one, each separated by a space. If the first argument is not `-n`, add a `\n`at the end. Otherwise, no need of `\n`.  
+
+**2.2 cd**  
+  - cd without argument would bring you back to $HOME  
+  - cd with only one argument will do chdir() (this function returns -1 on failure)  
+  - cd with 2 or more arguments will print an error message `cd: too many arguments` without doing chdir() for the first argument.  
+  Don't forget to update $PWD and $OLDPWD in your environment variables.  
+
+**2.3 pwd**  
+  Print working directory. I used `getcdw(NULL, 0)` to retrieve the pwd.  
+
+**2.4 env**  
+  Print all environment variables. (All variables whose `is_unset` value is 0).
+
+**2.1 echo**  
+
+**2.1 echo**  
 
 **2.1 echo**  
