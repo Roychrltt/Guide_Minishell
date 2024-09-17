@@ -4,26 +4,7 @@ This is a simple guide for minishell with only the wildcard bonus (110/100). I a
 (I won't go into detail on certain things since this guide is supposed to only help you find the direction when you feel blocked somewhere. But I'll give hints as I could.)  
   
 So there are three main parts: parsing, builtins, and execution (fork and redirection things blahblahblah).  
-### 1. Parsing  
-   - expand environment variables for the first time  
-   - cut input string into tokens  
-   - get token type  
-   - deal quotes and expand environment variables for the second time  
-### 2. Builtins  
-   - echo  
-   - cd  
-   - pwd  
-   - env  
-   - export  
-   - unset  
-   - exit  
-### 3. Execution  
-   - pipes and forks  
-   - redirection  
-   - execution  
- ### 4. Others  
-   - signals  
-   - wildcards  
+
 
 ## Preparation at beginning  
   Before the parsing, I did several things to initialize my main struct `t_mem`. Following are some that might worth a brief mentioning:  
