@@ -32,6 +32,7 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
 
  
 ## I. Parsing  
+**1.0 Check if input is valid (are all quotes well closed? Is there a meta char by the end?)**  
 **1.1 Expand environment variables for the first time**  
   Yes, you should try to expand environment variables in the input **before tokenizing it**.
   Example:  
@@ -45,5 +46,6 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
     
 **1.2 Cut input string into tokens**  
   This step could be quite annoying, expecially when you realise that the "tokens" in the command line are not necessarily separated by white spaces (or anything).  
-  For example, `echo -n message>file|cat file` works just as fine as `echo -n message > file | cat file`.
-  What's more, white spaces in quotes should be kept. So we can't simply split the input using ft_split().
+  For example, `echo -n message>file|cat file` will work just as fine as `echo -n message > file | cat file`.
+  What's more, white spaces in quotes should be kept. So we can't simply split the input using ft_split().  
+  I will not go into details of how this should be done since this is supposed to be a simple guide that just helps you find the direction.  However, a hint for the splitting of input is that you can focus on **meta chars** like `>` `<` `>>` `<<` `|`. Outside of quotes they should be reliable marks of splitting.
