@@ -1,6 +1,6 @@
 # Guide For Minishell  
 
-This is a simple guide for minishell with only the wildcard bonus (110/100). I added my header file here, in the hope that it would make my explanations more clear. 
+This is a simple guide for minishell with only the wildcard bonus (110/100). I added my header file here, in the hope that it would make my explanations more clear.  
 (I won't go into detail on certain things since this guide is supposed to only help you find the direction when you feel blocked somewhere. But I'll give hints as I could.)  
   
 So there are three main parts: parsing, builtins, and execution (fork and redirection things blahblahblah).  
@@ -51,8 +51,10 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   For example, `echo -n message>file|cat file` will work just as fine as `echo -n message > file | cat file`.
   What's more, white spaces in quotes should be kept. So we can't simply split the input using ft_split().  
   A hint for the splitting is that you can focus on **meta chars** like `>` `<` `>>` `<<` `|`. Outside of quotes they should be reliable marks of splitting.  
+  
 **1.3 Get token type**  
   After splitting the `char *input`, I created a linked list of struct `t_token` to store all tokens in order, while determining the type for each node at the same time. We still rely on **meta chars** in this step. For example, the token after `<` is for sure the name of the infile, and token after `<<` the LIMITER marking the end of heredoc, etc. The first string after redirections should be the command.  
+  
 **1.4 Deal quotes and expand environment variables for the second time**  
   Simply put, we remove the quotation marks and $VARIABLES in the arguments. Here are some examples that you should deal with:  
   ```
@@ -64,6 +66,8 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   minishell$> /Users/roychrltthi
   ```  
   ft_substr() and ft_strchr() could help a lot. Be careful with uninitialised value and segfault in this step.  
+  
 ## II. Builtins  
 **I would describe briefly how these builtins should behave, but I highly recommend you to do you own tests to truly learn about the behavior of these commands in `bash --posix`**  
+
 **2.1 echo**  
