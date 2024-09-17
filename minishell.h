@@ -6,7 +6,7 @@
 /*   By: xiaxu <xiaxu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:45:48 by xiaxu             #+#    #+#             */
-/*   Updated: 2024/09/16 11:28:56 by xiaxu            ###   ########.fr       */
+/*   Updated: 2024/09/17 18:40:32 by xiaxu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,7 @@ typedef struct s_cmd
 
 typedef struct s_mem
 {
-	int		i;
-	int		j;
-	int		k;
-	int		wait;
-	int		exit;
-	int		status;
 	char	*input;
-	int		found;
-	int		squote;
-	int		dquote;
-	int		word;
-	int		count;
 	int		saved_stdin;
 	int		saved_stdout;
 	char	**args;
@@ -115,6 +104,9 @@ typedef struct s_mem
 	int		index;
 	int		pipe_num;
 	int		cmd_exist;
+	int		wait;
+	int		exit;
+	int		status;
 	char	*last_cmd;
 }	t_mem;
 
