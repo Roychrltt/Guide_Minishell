@@ -24,6 +24,9 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
    - signals  
    - wildcards  
 
+## Preparation at beginning
+
+
 ## I. Parsing  
 1.1 Expand environment variables for the first time  
   Yes, you should try to expand environment variables in the input **before tokenizing it**.
@@ -33,4 +36,8 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   ec$HELLO  
   ```
   The output should be `hello` instead of `ec$HELLO command not found`  
-1.2
+    
+1.2 Cut input string into tokens
+  This step could be quite annoying, expecially when you realise that the "tokens" in the command line are not necessarily separated by white spaces (or anything).  
+  For example, `echo -n message>file|cat file` works just as fine as `echo -n message > file | cat file`.
+  What's more, white spaces in quotes should be kept. So we can't simply split the input using ft_split().
