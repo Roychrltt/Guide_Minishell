@@ -26,7 +26,7 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
 
 ## Preparation at beginning  
   Before the parsing, I did several things to initialize my main struct `t_mem`. Following are some that might worth a brief mentioning:  
-  - Use dup() to save the stdin and stdout so that I can still use the standard input or output during execution (for example, to get input for heredoc) even if I have used dup2() to redirect them, and by the end of the loop I can redirect them back.  
+  - Use dup() to save the stdin and stdout so that you can still use the standard input or output during execution (for example, to get input for heredoc) even if you have used dup2() to redirect them, and by the end of the loop they can be redirected back.  
   - Create a linked list for environment varibales. Personnally I made 2 since the output of export is sorted. Later when we do expansions we should use this list as reference instead of `char **envp` because we might modify the environment of our minishell but the `char **envp` will apparently not change accordingly.  
   - Use getenv() and ft_split() to get the paths for the search of command later. (Make sure that your minishell will not segfault if we do `env -i ./minishell`)  
 
@@ -36,8 +36,10 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   Yes, you should try to expand environment variables in the input **before tokenizing it**.
   Example:  
   ```
-  export HELLO="ho hello"  
-  ec$HELLO  
+  minishell$> export HELLO="ho hello"  
+  minishell$> ec$HELLO  
+  minishell$> hello  
+  minishell$>    
   ```
   The output should be `hello` instead of `ec$HELLO command not found`  
     
