@@ -14,9 +14,9 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
 
  
 ## I. Parsing  
-**1.0 Check if input is valid (Are all quotes well closed? Is there a meta char by the end?)**  
+### **1.0 Check if input is valid (Are all quotes well closed? Is there a meta char by the end?)**  
   
-**1.1 Expand environment variables for the first time**  
+### **1.1 Expand environment variables for the first time**  
   Yes, you should try to expand environment variables in the input **before tokenizing it**.
   Example:  
   ```
@@ -107,10 +107,10 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
 **I assume you did pipex and understand how pipe(), dup2(), and fork() work**  
 
 **3.1 initialize the struct for commands**  
-  In this part, I have a struct `t_cmd`, in which the name of each variable announces clearly what it is for. There's also an array of int `pid_t *pids` in `t_mem` to store the pid of each child process so that I can do waitpid() by the end of execution.  
+  In this part, I have a struct `t_cmd`, in which the name of each variable announces clearly what it is for. There's also an array of int `pid_t *pids` in `t_mem` to store the pid of each child process so that I can `waitpid()` by the end of execution.  
   So, We'll first create a pipe for each command except the last using the `int fd[2]`.  
   We'll then try to get the absolute path `char *command` for the command (if it's not a builtin) and put all arguments in an array of strings `char **args`.  
-  Lastly, we do the redirection and store the file descriptor of input file and output file in `int infile` and `int outfile`.
+  Lastly, we do the prep for redirection and store the file descriptor of input file and output file in `int infile` and `int outfile`.
 
 **3.2 redirection**   
   There might be more than 1 input file and output file. We should open all of them accordingly while each time closing the previous one before opening a new one. For heredoc, I would create a temporary file `.here_doc.tmp` and save the input in this file using get_next_line(saved_stdin). When it's not needed anymore, I do unlink() to remove it.  
