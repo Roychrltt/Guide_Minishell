@@ -113,10 +113,10 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   Lastly, we do the prep for redirection and store the file descriptor of input file and output file in `int infile` and `int outfile`.
 
 ### **3.2 redirection**   
-  There might be more than 1 input file and output file. We should open all of them accordingly while each time closing the previous one before opening a new one. For heredoc, I would create a temporary file `.here_doc.tmp` and save the input in this file using get_next_line(saved_stdin). When it's not needed anymore, I do unlink() to remove it.  
+  There might be more than 1 input file and output file. We should open all of them accordingly while each time closing the previous one before opening a new one. For heredoc, I would create a temporary file `.here_doc.tmp` and save the input in this file using `get_next_line(saved_stdin)`. When it's not needed anymore, I do `unlink()` to remove it.  
   We get fds in the parent process but do the redirection at the beginning of each child process. If there are input files, we `dup2(infile, STDIN_FILENO)`, and `dup2(outfile, STDOUT_FILENO)` for output files.  In the parent process, we close the writing end of the pipe and redirect `STDIN_FILENO` to the reading end of the pipe. Don't forget to close all fds that are not needed anymore in both processes.  
 
 ### **3.3 execution**  
   We `fork()` a child process for each command except when there's only one command and it's a builtin. Changes made to environment in child processes should not affect the enrivonment of parent process.  
-  Commands that are not builtins would normally exit when `execve()` is called. For builtins, we need to call `exit()` by the end. (Don't forget to update the exit status!)  
+  Commands that are not builtins would normally exit when `execve()` is called. For builtins, we need to call `exit()` at the end. (Don't forget to update the exit status!)  
   A key thing is, in the parent process, I redirect `STDIN_FILENO` and `STDOUT_FILENO` back to `saved_stdin` and `saved_stdout` before `waitpid()` so that the `SIGPIPE` could be triggered (yes this is for the famous `cat | cat | ls` to work "normally").  
