@@ -118,5 +118,9 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
 
 ### **3.3 execution**  
   We `fork()` a child process for each command except when there's only one command and it's a builtin. Changes made to environment in child processes should not affect the enrivonment of parent process.  
+  I used an array of ints `int pids[]` to store the pid of each child process, and by the end of execution, I used `waitpid()` to wait for each child process in order. Remember to check if the pid is bigger than -1.  
   Commands that are not builtins would normally exit when `execve()` is called. For builtins, we need to call `exit()` at the end. (Don't forget to update the exit status!)  
   A key thing is, in the parent process, I redirect `STDIN_FILENO` and `STDOUT_FILENO` back to `saved_stdin` and `saved_stdout` before `waitpid()` so that the `SIGPIPE` could be triggered (yes this is for the famous `cat | cat | ls` to work "normally").  
+  
+  ## IV. Wildcard Bonus  
+    The wildcard bonus is pretty simple and can be done within one file (using less than 5 functions). The functions that you'll need are `opendir()`, `readdir()`, and `closedir()`. The parsing logic is kinda the same as how we deal with quotes and environment variables.  
