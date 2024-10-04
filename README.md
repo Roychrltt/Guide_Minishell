@@ -123,4 +123,5 @@ So there are three main parts: parsing, builtins, and execution (fork and redire
   A key thing is, in the parent process, I redirect `STDIN_FILENO` and `STDOUT_FILENO` back to `saved_stdin` and `saved_stdout` before `waitpid()` so that the `SIGPIPE` could be triggered (yes this is for the famous `cat | cat | ls` to work "normally").  
   
   ## IV. Wildcard Bonus  
-  **The wildcard bonus is pretty simple and can be done within one file (using less than 5 functions). The functions that you'll need are `opendir()`, `readdir()`, and `closedir()`. The parsing logic is kinda the same as how we deal with quotes and environment variables.**  
+  The wildcard bonus is pretty simple and can be done within one file (using less than 5 functions). The functions that you'll need are `opendir()`, `readdir()`, and `closedir()`. They are like òpen()`, `read()`, and `close()` for directories. The parsing logic is kinda the same as how we deal with quotes and environment variables.  
+  
