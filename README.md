@@ -1,10 +1,10 @@
 # Guide For Minishell  
 
-This is a simple guide for minishell with only the wildcard bonus (110/100). I added my header file here, in the hope that it would make my explanations more clear.  
+This is a simple guide for minishell with only the wildcard bonus (110/100). I added my header file here, in the hope that it would make the explanations more clear.  
 (I won't go into detail on certain things since this guide is supposed to only help you find the direction when you feel blocked somewhere. But I'll give hints as I could.)  
   
 So there are three main parts: parsing, builtins, and execution (fork and redirection things blahblahblah).  
-
+**Always compare the results with `bash --posix` and not zsh!!!**
 
 ## Preparation at beginning  
   Before the parsing, I did several things to initialize my main struct `t_mem`. Following are some that might worth a brief mentioning:  
