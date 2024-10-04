@@ -4,9 +4,9 @@ This is a simple guide for minishell with only the wildcard bonus (110/100). I a
 (I won't go into detail on certain things since this guide is supposed to only help you find the direction when you feel blocked somewhere. But I'll give hints as I could.)  
   
 So there are three main parts: parsing, builtins, and execution (fork and redirection things blahblahblah).  
-**Always compare the results with `bash --posix` and not zsh!!!**
 
 ## Preparation at beginning  
+  **Always compare the results with `bash --posix` and not zsh!!!**  
   Before the parsing, I did several things to initialize my main struct `t_mem`. Following are some that might worth a brief mentioning:  
   - Use dup() to save the stdin and stdout so that you can still use the standard input or output during execution (for example, to get input for heredoc) even if you have used dup2() to redirect them, and by the end of the loop they can be redirected back.  
   - Create a linked list for environment varibales. Personnally I made 2 since the output of export is sorted. Later when we do expansions we should use this list as reference instead of `char **envp` because we might modify the environment of our minishell but the `char **envp` will apparently not change accordingly. The struct `t_env` that I used have a variable `is_unset` which indicates if this varaible still exists.  
